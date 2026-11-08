@@ -12,6 +12,18 @@ major or minor.
 
 ### Major changes {#v0-4-major}
 
+<Change title="Proposed MOLE private access" sections="1.1, 2, 5, 5.1, 5.2, 5.6, 6, 7, 10.2, 11, MOLE private access">
+
+The experimental `mole` extension proposes public read-only access through MOLE credentials,
+without a Poppy User ID or Session. Discovery lists a Moderator configuration and exact resource
+scopes. The Session and browser-join rules gain an explicit exception only for those resources.
+Private clients isolate identifying state, retain wallet continuations, and ask the User before
+sharing approved facts with a Session or account. Existing account authorization, conversations,
+writes, and MCP keep their rules. The profile pins work-in-progress MOLE drafts and lists questions
+for review; it does not claim adoption or a shipping browser API.
+
+</Change>
+
 <Change title="Direct Sign-In preferred" sections="4, 4.3, guides#company-device" issue="66">
 
 Direct Sign-In is the preferred sign-in type. A Company that offers sign-in SHOULD offer Direct

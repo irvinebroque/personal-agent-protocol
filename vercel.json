@@ -107,6 +107,16 @@
             "permanent": false
         },
         {
+            "source": "/docs/extensions/mole",
+            "destination": "/docs/0.4/extensions/mole",
+            "permanent": false
+        },
+        {
+            "source": "/docs/extensions/mole.md",
+            "destination": "/docs/0.4/extensions/mole.md",
+            "permanent": false
+        },
+        {
             "source": "/docs/extensions/operations",
             "destination": "/docs/0.4/extensions/operations",
             "permanent": false

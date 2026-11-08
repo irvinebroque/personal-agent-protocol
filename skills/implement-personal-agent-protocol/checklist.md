@@ -524,6 +524,39 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 - [ ] **MUST**: The Company MUST remember that it performed an operation at least until the approved revision's `expires_at`, and while it is being performed.
 - [ ] **MUST NOT**: While an operation is being performed, or the Company doesn't know whether it took effect, for example after a timeout in one of its own systems, the Company MUST NOT respond as if it failed.
 
+### MOLE private access: [2. Advertising support](https://personalagentprotocol.org/docs/0.4/extensions/mole#support)
+
+- [ ] **MUST**: The Company MUST publish the configuration URL and resource URLs on the origin of `https://{organization.domain}`.
+- [ ] **MUST**: The Company MUST list only public, read-only resources.
+- [ ] **MUST NOT**: The Company MUST NOT list OAuth endpoints, browser-join endpoints, Poppy conversation endpoints, MCP endpoints, account data, or an operation that changes application state.
+- [ ] **MUST**: The Company MUST accept this browser use without requiring `Poppy-Extensions` or `Poppy-Version`.
+
+### MOLE private access: [3. Anchors and eligibility](https://personalagentprotocol.org/docs/0.4/extensions/mole#anchors)
+
+- [ ] **SHOULD**: The Company SHOULD document the eligibility policies it accepts and what limits repeated grants.
+- [ ] **SHOULD**: The Company SHOULD assess endorsement scarcity and configuration consistency under the MOLE architecture's privacy model.
+
+### MOLE private access: [4. Private requests](https://personalagentprotocol.org/docs/0.4/extensions/mole#requests)
+
+- [ ] **MUST**: The Company MUST support this mode without requiring a User ID, Session, or account cookie.
+- [ ] **MUST**: The Personal Agent and Company MUST follow the referenced MOLE HTTP transport for challenges, issuance, presentations, updates, and recovery.
+- [ ] **MUST**: The Company MUST bind an EC-ACT presentation to the request's method, full target URL including its query, and body bytes, using the credential protocol's operation-binding mechanism.
+- [ ] **MUST**: The Company MUST preserve replay protection within its declared replay scope and MUST NOT treat a recovered presentation as authorization to execute another operation.
+- [ ] **MUST**: The Company MUST retain the MOLE response's cache protections and expose the required authentication and update headers when it permits cross-origin wallet requests.
+
+### MOLE private access: [5. Browser and HTTP clients](https://personalagentprotocol.org/docs/0.4/extensions/mole#clients)
+
+- [ ] **MUST NOT**: The Company MUST NOT require a Poppy User ID, per-user key directory, wallet identifier, or Session delegation as operator recognition for this private profile.
+
+### MOLE private access: [6. Choosing continuity and account access](https://personalagentprotocol.org/docs/0.4/extensions/mole#continuity)
+
+- [ ] **MUST NOT**: The Company MUST NOT use MOLE wallet state as a bridge to Session ownership or account identity.
+
+### MOLE private access: [7. Privacy and deployment limits](https://personalagentprotocol.org/docs/0.4/extensions/mole#privacy)
+
+- [ ] **SHOULD**: The Company SHOULD evaluate Anchor-set size, configuration consistency, logging, network correlation, and collusion under the referenced architecture.
+- [ ] **SHOULD**: The Company SHOULD document key rotation and bounded retention for recovery and replay state.
+
 ### Recommended: [Operations](https://personalagentprotocol.org/docs/0.4/guides#company-operations)
 
 When you offer the Operations extension:
