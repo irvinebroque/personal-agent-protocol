@@ -18,9 +18,9 @@ The `mole` extension enables public read-only access through MOLE credentials,
 without a Poppy User ID or Session. Clients can start with an identity-free request before any MOLE advertisement or challenge.
 Discovery supplies Moderator configuration without a resource allowlist; runtime policy decides access.
 The Session and browser-join rules explicitly permit private negotiation. Browser assets can require
-MOLE without a change of mode; switching to a Session or account requires User approval.
-Private clients isolate identifying state and ask the User before sharing approved facts with a
-Session or account. Credential state, updates, replay protection, recovery, and operation binding
+MOLE without a change of mode. Personal Agents can also choose ordinary Poppy Sessions,
+including anonymous browsing User IDs, without a new User approval requirement. Clients isolate
+identifying state while using Session-free access. Existing OAuth authorization governs account access. Credential state, updates, replay protection, recovery, and operation binding
 follow the referenced MOLE specifications. The extension adds no HTTP request serialization.
 Existing account authorization, conversations, writes, and MCP keep their rules. The profile uses
 revision 01 of the MOLE architecture, protocols, and HTTP transport.

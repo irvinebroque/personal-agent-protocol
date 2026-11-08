@@ -543,10 +543,6 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 
 - [ ] **MUST NOT**: The Company MUST NOT require a Poppy User ID, per-user key directory, wallet identifier, or Session delegation as operator recognition for this private profile.
 
-### MOLE private access: [6. Choosing continuity and account access](https://personalagentprotocol.org/docs/0.4/extensions/mole#continuity)
-
-- [ ] **MUST NOT**: The Company MUST NOT use MOLE wallet state as a bridge to Session ownership or account identity.
-
 ### MOLE private access: [7. Privacy and deployment limits](https://personalagentprotocol.org/docs/0.4/extensions/mole#privacy)
 
 - [ ] **SHOULD**: The Company SHOULD evaluate Anchor-set size, configuration consistency, logging, network correlation, and collusion under the referenced architecture.

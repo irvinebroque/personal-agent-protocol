@@ -148,7 +148,7 @@ const TABS: TabInfo[] = [
                 navTitle: "MOLE private access",
                 title: "Personal Agent Protocol: MOLE private-access extension",
                 description:
-                    "Public read-only access without a Poppy Session, with MOLE credentials and explicit approval before continuity.",
+                    "Optional MOLE access for public read-only content alongside Poppy Sessions and OAuth account access.",
                 outlineDepth: 2,
             },
             {

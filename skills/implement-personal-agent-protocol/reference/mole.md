@@ -4,7 +4,7 @@
 
 This page defines version 1 of the `mole` extension. It uses revision 01 of the [MOLE architecture](https://datatracker.ietf.org/doc/html/draft-jms-mole-architecture-01), [protocols](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01), and [HTTP transport](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01). A matching extension version does not establish compatibility with later MOLE revisions.
 
-A Personal Agent can use a MOLE credential to access a public read-only resource without a Poppy User ID, Session, or account token. The Company can enforce its access policy through credential proofs and updates. A User can later choose a Session for continuity, and OAuth account access when a task needs it. These are independent choices, not required steps.
+A Personal Agent can use a MOLE credential to access a public read-only resource without a Poppy User ID, Session, or account token. The Company can enforce its access policy through credential proofs and updates. The Personal Agent can choose MOLE, an ordinary Poppy Session, or account access under existing OAuth rules. Supporting this extension does not require a Company or Personal Agent to use MOLE for every request.
 
 Poppy already permits a fresh User ID for each anonymous browsing session ([5.1](https://personalagentprotocol.org/docs/0.4/spec#user-ids)). This extension adds a way to limit access without relying on that ID. Version 1 covers public pages and read-only HTTP APIs. It does not define private conversations, account access, writes, or an MCP authentication profile.
 
@@ -32,7 +32,7 @@ This advertisement helps configuration discovery; it is not a prerequisite for a
 
 The Company MUST publish the configuration URL on the origin of `https://{organization.domain}`. The Personal Agent MUST reject a configuration URL with user information, a query, or a fragment, or on another origin. The Personal Agent MUST fetch configuration without identifying cookies, account tokens, or a Session header, and MUST NOT follow a redirect from that URL. Other URLs obtained from configuration follow Poppy's HTTPS, address, and redirect rules ([3](https://personalagentprotocol.org/docs/0.4/spec#discovery)) and the referenced MOLE drafts.
 
-A Personal Agent can obtain Moderator configuration through this advertisement or trusted client configuration. A challenge alone does not establish the Moderator's configuration or trust. The Personal Agent MUST NOT guess configuration endpoints or present a credential to an unverified Moderator. If it cannot obtain the configuration needed for an exchange, it stops or asks the User.
+A Personal Agent can obtain Moderator configuration through this advertisement or trusted client configuration. A challenge alone does not establish the Moderator's configuration or trust. The Personal Agent MUST NOT guess configuration endpoints or present a credential to an unverified Moderator. If it cannot obtain the configuration needed for an exchange, it can stop or choose ordinary Poppy access under section 6.
 
 For direct HTTP requests, the Personal Agent MAY declare `Poppy-Extensions: "mole";v="1"`. A Company that offers MOLE MUST allow private negotiation without requiring `Poppy-Extensions` or `Poppy-Version`, including on the initial request. Personal Agents ignore unknown extension versions. The discovery schema is `mole-extension.schema.json` in the Company kit.
 
@@ -48,7 +48,7 @@ The Personal Agent MUST keep Anchor authentication at the Anchor, and MUST NOT s
 
 ## 4. Private requests
 
-A Personal Agent MAY start a private request for public, read-only content without prior MOLE advertisement, without creating a User ID or Session, and before receiving a challenge. The Personal Agent MUST omit the Session header, account tokens, DPoP proofs, identifying cookies, and other per-user identifiers from the initial request and subsequent private exchanges. This is the explicit exception to the Session rules in [5.1](https://personalagentprotocol.org/docs/0.4/spec#user-ids), [5.2](https://personalagentprotocol.org/docs/0.4/spec#session-header), and [5.6](https://personalagentprotocol.org/docs/0.4/spec#sending-requests).
+A Personal Agent MAY start a private request for public, read-only content without prior MOLE advertisement, without creating a User ID or Session, and before receiving a challenge. When it chooses this Session-free mode, the Personal Agent MUST omit the Session header, account tokens, DPoP proofs, identifying cookies, and other per-user identifiers from the initial request and subsequent private exchanges. This is the explicit exception to the Session rules in [5.1](https://personalagentprotocol.org/docs/0.4/spec#user-ids), [5.2](https://personalagentprotocol.org/docs/0.4/spec#session-header), and [5.6](https://personalagentprotocol.org/docs/0.4/spec#sending-requests).
 
 The resource can serve the request without authentication, issue a MOLE challenge, or refuse access under its policy. The Personal Agent MAY answer a MOLE challenge using verified configuration. A Company that offers MOLE at a resource MUST support that exchange without requiring a User ID, Session, or account cookie. A private attempt does not oblige the Company to grant access or enable MOLE on an endpoint.
 
@@ -60,27 +60,27 @@ Operation binding follows [MOLE Protocols 5.2.3.1](https://datatracker.ietf.org/
 
 A MOLE allowance does not grant OAuth scopes or permission to read account data.
 
-A Personal Agent that cannot satisfy a MOLE challenge, or whose request requires a Session or account access, stops or asks the User to approve another mode. The Personal Agent MUST NOT silently attach a Session, sign in, or create another wallet to evade an exhausted allowance.
+A Personal Agent that cannot satisfy a MOLE challenge can stop or choose ordinary Poppy access under section 6. This extension adds no requirement to ask the User before choosing another mode.
 
 ## 5. Browser and HTTP clients
 
 The wallet can run in trusted browser integration or in the Personal Agent's runtime. This profile does not define a browser JavaScript API, require a particular wallet library, or assume a shipping browser credential-injection feature. A browser integration needs to handle the MOLE exchange for the requests it makes; a library in page JavaScript does not cover arbitrary navigations.
 
-The Personal Agent MUST isolate private browsing from identifying cookies, site storage, service workers, account state, and prior browser joins. The Personal Agent MUST NOT join that private browser context to a Poppy Session. This is the exception to mandatory browser joining in [section 6](https://personalagentprotocol.org/docs/0.4/spec#web-browsing), including during initial private negotiation. The Company's `web.disabled` preference still applies. A Personal Agent that cannot isolate the context MUST NOT describe that browsing as private access under this profile.
+While using Session-free access, the Personal Agent MUST isolate browsing from identifying cookies, site storage, service workers, account state, and prior browser joins. The Personal Agent MUST NOT join the browser context to a Poppy Session while claiming Session-free access. This is the exception to mandatory browser joining in [section 6](https://personalagentprotocol.org/docs/0.4/spec#web-browsing), including during initial private negotiation. The Company's `web.disabled` preference still applies. A Personal Agent that cannot isolate the context MUST NOT describe that browsing as private access under this profile.
 
-The Personal Agent MUST maintain identity isolation for navigations, redirects, and subresource requests. Pages, images, stylesheets, and other assets can each require MOLE; the browser can handle those challenges without changing modes or asking for approval on each asset. If a request requires a Session or account, the Personal Agent MUST stop it until the User approves that transition. For later browser access with a Session or account, the Personal Agent MUST use a separate context and MUST NOT join the private context after approval.
+While using Session-free access, the Personal Agent MUST maintain identity isolation for navigations, redirects, and subresource requests. Pages, images, stylesheets, and other assets can each require MOLE. The Personal Agent can handle those challenges or choose ordinary Poppy access under section 6. Browser joining then follows Poppy's existing rules.
 
-Direct HTTP clients need the same separation from user identity. The Personal Agent MUST keep endorsements, credentials, continuation state, and pending authorization values outside model context ([10.2](https://personalagentprotocol.org/docs/0.4/spec#secrets)).
+Direct HTTP clients have the same choice of access modes and the same isolation requirements while using Session-free access. The Personal Agent MUST keep endorsements, credentials, continuation state, and pending authorization values outside model context ([10.2](https://personalagentprotocol.org/docs/0.4/spec#secrets)).
 
 Operator recognition remains a separate policy. A Company can require an operator-level Web Bot Auth signature when its browser or HTTP integration supports it. The Company MUST NOT require a Poppy User ID, per-user key directory, wallet identifier, or Session delegation as operator recognition for this private profile. A valid operator signature does not verify a MOLE proof. An operator signing service can itself observe traffic, as the [guides](https://personalagentprotocol.org/docs/0.4/guides#both-operator-signatures) explain.
 
-## 6. Choosing continuity and account access
+## 6. Choosing access modes
 
-When the User wants continuity, the Personal Agent starts or resumes an ordinary Poppy Session. The Personal Agent MUST explain which facts it will share and obtain the User's approval before linking private work to a Session or account. The Personal Agent MUST share only the approved facts, and MUST NOT transfer private query history, endorsements, credentials, or wallet identifiers as part of that transition. For example, **Save this shortlist with Poppy** can share the checked products without sharing the preceding searches.
+The Personal Agent MAY choose or switch to ordinary Poppy Session access under its own policy and the User's instructions. This includes using the existing company-scoped User ID or a fresh User ID for an anonymous browsing Session ([5.1](https://personalagentprotocol.org/docs/0.4/spec#user-ids)). This extension adds no User approval requirement for choosing a Session or sharing task information with it.
 
-The Company MUST NOT use MOLE wallet state as a bridge to Session ownership or account identity. An ordinary conversation after approval follows Poppy's existing request and Session rules. Account access follows the existing OAuth flows and scope approval. A private credential does not replace those permissions.
+Session requests and browser joining follow Poppy's existing rules. Where the Company supports it, a signed-out Session request can also carry a MOLE proof. Sending a User ID or Session lets the Company associate activity with that identifier; those requests do not have Session-free privacy.
 
-The Personal Agent MUST NOT automatically change modes after a redirect, rate limit, challenge, or task that needs more access. It stops or asks for the appropriate User approval. Credentials and Session JWTs never follow a redirect to a new destination; the Personal Agent evaluates the new resource separately under the applicable mode.
+Account access follows the existing OAuth flows, scopes, and authorization requirements. A MOLE credential does not replace account authorization. Credentials and Session JWTs remain subject to Poppy's and MOLE's destination and redirect rules.
 
 ## 7. Privacy and deployment limits
 

@@ -1124,8 +1124,10 @@ browsing the Company's website. On a website without the endpoint, the Personal 
 ordinary signed-out visitor.
 
 A Personal Agent using the [MOLE private-access profile](/docs/extensions/mole#clients)
-MUST NOT join its isolated private browser context to a Session. This exception includes initial private negotiation without prior MOLE advertisement. The profile requires
-User approval before moving private work into continuity or account access.
+MUST NOT join its browser context to a Session while using Session-free access. This exception
+includes initial private negotiation without prior MOLE advertisement. The Personal Agent can
+choose ordinary Poppy Session access, including an anonymous browsing User ID, under the
+existing rules. The extension adds no User approval requirement for that choice.
 
 **Asking Personal Agents not to browse.** A Company that wants Personal Agents to use only its
 Company Agent and APIs sets `web.disabled` to `true` in `poppy.json`. A Personal Agent SHOULD NOT
