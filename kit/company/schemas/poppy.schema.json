@@ -228,6 +228,30 @@
                             }
                         }
                     }
+                },
+                "mole": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "required": ["version"],
+                        "properties": {
+                            "version": {
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "if": {
+                            "properties": {
+                                "version": {
+                                    "const": "1"
+                                }
+                            }
+                        },
+                        "then": {
+                            "$ref": "mole-extension.schema.json"
+                        }
+                    }
                 }
             },
             "additionalProperties": {

@@ -524,6 +524,29 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 - [ ] **MUST**: The Company MUST remember that it performed an operation at least until the approved revision's `expires_at`, and while it is being performed.
 - [ ] **MUST NOT**: While an operation is being performed, or the Company doesn't know whether it took effect, for example after a timeout in one of its own systems, the Company MUST NOT respond as if it failed.
 
+### MOLE private access: [2. Advertising support](https://personalagentprotocol.org/docs/0.4/extensions/mole#support)
+
+- [ ] **MUST**: A Company that offers MOLE MUST allow private negotiation without requiring `Poppy-Extensions` or `Poppy-Version`, including on the initial request.
+
+### MOLE private access: [3. Anchors and eligibility](https://personalagentprotocol.org/docs/0.4/extensions/mole#anchors)
+
+- [ ] **SHOULD**: The Company SHOULD document the eligibility policies it accepts and what limits repeated grants.
+- [ ] **SHOULD**: The Company SHOULD assess endorsement scarcity and configuration consistency under the MOLE architecture's privacy model.
+
+### MOLE private access: [4. Private requests](https://personalagentprotocol.org/docs/0.4/extensions/mole#requests)
+
+- [ ] **MUST**: A Company that offers MOLE at a resource MUST support that exchange without requiring a User ID, Session, or account cookie.
+- [ ] **MUST**: For their roles and supported exchanges, the Personal Agent and Company MUST follow the applicable requirements of MOLE Protocols revision 01 and MOLE HTTP Transport revision 01.
+
+### MOLE private access: [5. Browser and HTTP clients](https://personalagentprotocol.org/docs/0.4/extensions/mole#clients)
+
+- [ ] **MUST NOT**: The Company MUST NOT require a Poppy User ID, per-user key directory, wallet identifier, or Session delegation as operator recognition for this private profile.
+
+### MOLE private access: [7. Privacy and deployment limits](https://personalagentprotocol.org/docs/0.4/extensions/mole#privacy)
+
+- [ ] **SHOULD**: The Company SHOULD evaluate Anchor-set size, configuration consistency, logging, network correlation, and collusion under the referenced architecture.
+- [ ] **SHOULD**: The Company SHOULD document key rotation and bounded retention for recovery and replay state.
+
 ### Recommended: [Operations](https://personalagentprotocol.org/docs/0.4/guides#company-operations)
 
 When you offer the Operations extension:

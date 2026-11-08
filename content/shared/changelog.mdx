@@ -12,6 +12,26 @@ major or minor.
 
 ### Major changes {#v0-4-major}
 
+<Change title="MOLE private access" sections="1.1, 2, 5, 5.1, 5.2, 5.6, 6, 7, 10.2, 11, MOLE private access">
+
+The `mole` extension enables public read-only access through MOLE credentials,
+without a Poppy User ID or Session. Clients can start with an identity-free request before any MOLE advertisement or challenge.
+Discovery supplies Moderator configuration, including hosted providers on another origin,
+without a resource allowlist; runtime policy decides access. Adoption is optional per resource
+and client capability: HTTP API support does not require browser integration. Companies can use
+hosted Moderators, and Personal Agents can reuse wallets and configured Anchor services. When no
+usable Anchor matches, the Personal Agent can stop or choose ordinary Poppy access. MOLE requirements
+apply to each participant's roles and supported exchanges.
+The Session and browser-join rules explicitly permit private negotiation. Browser assets can require
+MOLE without a change of mode. Personal Agents can also choose ordinary Poppy Sessions,
+including anonymous browsing User IDs, without a new User approval requirement. Clients isolate
+identifying state while using Session-free access. Existing OAuth authorization governs account access. Credential state, updates, replay protection, recovery, and operation binding
+follow the referenced MOLE specifications. The extension adds no HTTP request serialization.
+Existing account authorization, conversations, writes, and MCP keep their rules. The profile uses
+revision 01 of the MOLE architecture, protocols, and HTTP transport.
+
+</Change>
+
 <Change title="Direct Sign-In preferred" sections="4, 4.3, guides#company-device" issue="66">
 
 Direct Sign-In is the preferred sign-in type. A Company that offers sign-in SHOULD offer Direct

@@ -158,6 +158,13 @@ export function checkSpecExamples(schemas: Record<string, object>): string[] {
             MEDIATED_SIGN_IN_EXAMPLES,
             schemas,
         ),
+        ...checkExamples(
+            docsHref("extensions/mole")!,
+            {
+                "support:1": excerpt("extensions", "poppy.schema.json#/properties/extensions"),
+            },
+            schemas,
+        ),
         ...checkExamples(docsHref("extensions/links")!, LINKS_EXAMPLES, schemas),
         ...checkExamples(docsHref("extensions/disclosures")!, DISCLOSURES_EXAMPLES, schemas),
     ];

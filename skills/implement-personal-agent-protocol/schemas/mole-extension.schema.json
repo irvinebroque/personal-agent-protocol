@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "MOLE private-access extension version 1",
+    "description": "Moderator configuration discovery for private negotiation. No resource declaration is required; runtime policy decides access.",
+    "type": "object",
+    "required": ["version", "moderator_config_uri"],
+    "properties": {
+        "version": {
+            "const": "1"
+        },
+        "moderator_config_uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://[^\\s/?#@\\\\]+/[^\\s?#\\\\]*$"
+        }
+    }
+}

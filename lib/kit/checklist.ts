@@ -90,6 +90,14 @@ const SECTIONS: Record<string, Record<string, Milestone>> = {
         "at-most-once": "extensions",
         "approval-proof": "extensions",
     },
+    mole: {
+        support: "extensions",
+        anchors: "extensions",
+        requests: "extensions",
+        clients: "extensions",
+        continuity: "extensions",
+        privacy: "extensions",
+    },
     guides: {
         "both-secrets": "foundation",
         "both-signing": "foundation",
@@ -344,13 +352,17 @@ const PAGE_TITLES: Record<string, string> = {
     spec: "Specification",
     operations: "Operations",
     "mediated-sign-in": "Mediated Sign-In",
+    mole: "MOLE private access",
 };
 
 // The checklist as Markdown.
 export function checklistMarkdown(version: string): string {
-    const pages = ["spec", "extensions/operations", "extensions/mediated-sign-in"].map((slug) =>
-        docsPage(docsHref(slug)!),
-    );
+    const pages = [
+        "spec",
+        "extensions/operations",
+        "extensions/mediated-sign-in",
+        "extensions/mole",
+    ].map((slug) => docsPage(docsHref(slug)!));
     const all = pages.flatMap(requirements).filter((r) => r.party !== "agent");
     const recommended = recommendations();
     const titles = new Map([

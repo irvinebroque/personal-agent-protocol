@@ -144,6 +144,14 @@ const TABS: TabInfo[] = [
                 outlineDepth: 2,
             },
             {
+                slug: "extensions/mole",
+                navTitle: "MOLE private access",
+                title: "Personal Agent Protocol: MOLE private-access extension",
+                description:
+                    "Optional MOLE access for public read-only content alongside Poppy Sessions and OAuth account access.",
+                outlineDepth: 2,
+            },
+            {
                 slug: "extensions/operations",
                 navTitle: "Operations",
                 title: "Personal Agent Protocol: Operations extension",
