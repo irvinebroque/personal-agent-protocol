@@ -16,7 +16,12 @@ major or minor.
 
 The `mole` extension enables public read-only access through MOLE credentials,
 without a Poppy User ID or Session. Clients can start with an identity-free request before any MOLE advertisement or challenge.
-Discovery supplies Moderator configuration without a resource allowlist; runtime policy decides access.
+Discovery supplies Moderator configuration, including hosted providers on another origin,
+without a resource allowlist; runtime policy decides access. Adoption is optional per resource
+and client capability: HTTP API support does not require browser integration. Companies can use
+hosted Moderators, and Personal Agents can reuse wallets and configured Anchor services. When no
+usable Anchor matches, the Personal Agent can stop or choose ordinary Poppy access. MOLE requirements
+apply to each participant's roles and supported exchanges.
 The Session and browser-join rules explicitly permit private negotiation. Browser assets can require
 MOLE without a change of mode. Personal Agents can also choose ordinary Poppy Sessions,
 including anonymous browsing User IDs, without a new User approval requirement. Clients isolate

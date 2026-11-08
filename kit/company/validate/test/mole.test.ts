@@ -20,6 +20,9 @@ function discovery(entry?: object) {
 test("MOLE discovery accepts configuration without a resource allowlist", () => {
     assert.deepEqual(check("poppy.schema.json", discovery(profile)), []);
     assert.deepEqual(check("mole-extension.schema.json", profile), []);
+    const hosted = { ...profile, moderator_config_uri: "https://moderator.example.net/config" };
+    assert.deepEqual(check("poppy.schema.json", discovery(hosted)), []);
+    assert.deepEqual(check("mole-extension.schema.json", hosted), []);
     assert.deepEqual(check("poppy.schema.json", discovery()), []);
 });
 
