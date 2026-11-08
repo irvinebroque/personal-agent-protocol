@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "Proposed MOLE private-access extension version 1",
-    "description": "Experimental declaration of public read-only resources. Origin equality, path semantics, and read-only behavior also require implementation checks.",
+    "title": "MOLE private-access extension version 1",
+    "description": "Declaration of public read-only resources. Origin equality, path semantics, and read-only behavior also require implementation checks.",
     "type": "object",
     "required": ["version", "moderator_config_uri", "resources"],
     "properties": {

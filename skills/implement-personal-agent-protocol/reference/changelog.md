@@ -8,11 +8,11 @@ In progress, at [/docs/spec](https://personalagentprotocol.org/docs/0.4/spec). T
 
 ### Major changes
 
-#### Proposed MOLE private access
+#### MOLE private access
 
 [Spec 1.1](https://personalagentprotocol.org/docs/0.4/spec#layers) · [Spec 2](https://personalagentprotocol.org/docs/0.4/spec#terms) · [Spec 5](https://personalagentprotocol.org/docs/0.4/spec#sessions) · [Spec 5.1](https://personalagentprotocol.org/docs/0.4/spec#user-ids) · [Spec 5.2](https://personalagentprotocol.org/docs/0.4/spec#session-header) · [Spec 5.6](https://personalagentprotocol.org/docs/0.4/spec#sending-requests) · [Spec 6](https://personalagentprotocol.org/docs/0.4/spec#web-browsing) · [Spec 7](https://personalagentprotocol.org/docs/0.4/spec#apis) · [Spec 10.2](https://personalagentprotocol.org/docs/0.4/spec#secrets) · [Spec 11](https://personalagentprotocol.org/docs/0.4/spec#references) · [MOLE private access](https://personalagentprotocol.org/docs/0.4/extensions/mole)
 
-The experimental `mole` extension proposes public read-only access through MOLE credentials, without a Poppy User ID or Session. Discovery lists a Moderator configuration and exact resource scopes. The Session and browser-join rules gain an explicit exception only for those resources. Private clients isolate identifying state, retain wallet continuations, and ask the User before sharing approved facts with a Session or account. Existing account authorization, conversations, writes, and MCP keep their rules. The profile pins work-in-progress MOLE drafts and lists questions for review; it does not claim adoption or a shipping browser API.
+The `mole` extension enables public read-only access through MOLE credentials, without a Poppy User ID or Session. Discovery lists a Moderator configuration and exact resource scopes. The Session and browser-join rules gain an explicit exception only for those resources. Private clients isolate identifying state, retain wallet continuations, and ask the User before sharing approved facts with a Session or account. Existing account authorization, conversations, writes, and MCP keep their rules. The profile uses revision 01 of the MOLE architecture, protocols, and HTTP transport.
 
 #### Direct Sign-In preferred
 

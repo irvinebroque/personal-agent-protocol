@@ -146,9 +146,9 @@ const TABS: TabInfo[] = [
             {
                 slug: "extensions/mole",
                 navTitle: "MOLE private access",
-                title: "Personal Agent Protocol: Proposed MOLE private-access extension",
+                title: "Personal Agent Protocol: MOLE private-access extension",
                 description:
-                    "An experimental proposal for public read-only access without a Poppy Session, with MOLE credentials and explicit approval before continuity.",
+                    "Public read-only access without a Poppy Session, with MOLE credentials and explicit approval before continuity.",
                 outlineDepth: 2,
             },
             {

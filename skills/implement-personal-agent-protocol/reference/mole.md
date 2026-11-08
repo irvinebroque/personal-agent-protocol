@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-This page proposes version 1 of the `mole` extension. It is an experimental proposal for review, not an adopted Poppy feature or a final MOLE standard. It references revision 01 of the [MOLE architecture](https://datatracker.ietf.org/doc/html/draft-jms-mole-architecture-01), [protocols](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01), and [HTTP transport](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01). Those documents remain works in progress. Changes to their wire formats need a new interoperability review; a matching extension version alone does not establish compatibility with later MOLE drafts.
+This page defines version 1 of the `mole` extension. It uses revision 01 of the [MOLE architecture](https://datatracker.ietf.org/doc/html/draft-jms-mole-architecture-01), [protocols](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01), and [HTTP transport](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01). A matching extension version does not establish compatibility with later MOLE revisions.
 
 A Personal Agent can use a MOLE credential to access an advertised public resource without a Poppy User ID, Session, or account token. The Company can enforce its access policy through credential proofs and updates. A User can later choose a Session for continuity, and OAuth account access when a task needs it. These are independent choices, not required steps.
 
@@ -29,7 +29,7 @@ A Company that offers private access lists `mole` in `extensions` in its `poppy.
 
 | Field | Required | Meaning |
 | --- | --- | --- |
-| `version` | Yes | `1`, for this proposed profile. |
+| `version` | Yes | `1`, for this profile. |
 | `moderator_config_uri` | Yes | The HTTPS URL of the MOLE Moderator configuration. |
 | `resources` | Yes | A nonempty list of eligible resources. |
 | `resources[].url` | Yes | The HTTPS origin and path to match. No user information, query, or fragment. |
@@ -93,14 +93,6 @@ The Personal Agent MUST NOT automatically change modes after a redirect, rate li
 MOLE's credential properties do not hide IP addresses, timing, query contents, operator identity, or shared infrastructure. The Company SHOULD evaluate Anchor-set size, configuration consistency, logging, network correlation, and collusion under the referenced architecture. A single-operator demonstration does not establish anonymity against that operator.
 
 The Company SHOULD document key rotation and bounded retention for recovery and replay state. Neither starting a new chat nor opening a private browser window grants a fresh allowance. Deployments choose their eligibility policies and initial allowances. This profile does not define application result recovery or a wallet library API.
-
-## 8. Questions for review
-
-- Should `mole` become a reserved extension name, and are these discovery fields sufficient?
-- How should a wallet discover Anchor services without a mandatory central directory?
-- Which browser integrations can enforce credential and identity isolation for navigation and subresources? What CORS and multi-tab behavior needs an implementation guide?
-- Should later versions support other MOLE types, writes, conversations, or MCP? Those need their own authorization, operation-binding, and retry analysis.
-- What interoperability evidence should precede adoption while the referenced MOLE drafts evolve?
 
 ---
 

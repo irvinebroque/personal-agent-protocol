@@ -28,7 +28,7 @@ they are not a sequence of adoption levels.
 | ---------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Discovery                    | Finds the Company's channels, capabilities, and sign-in options.                                      | The Company publishes `poppy.json` and at least one channel (section 3). Account access uses standard OAuth metadata (3.2).                                               |
 | Operator recognition         | Lets existing bot defenses authenticate the operator before application handling.                     | A recommended Web Bot Auth signature provides compatibility with those defenses. An edge that verifies delegated Session JWTs can authenticate the client directly (5.3). |
-| Private access               | Limits access without a Poppy User ID or Session.                                                     | The proposed [MOLE extension](/docs/extensions/mole) applies only to advertised public read-only resources.                                                               |
+| Private access               | Limits access without a Poppy User ID or Session.                                                     | The [MOLE extension](/docs/extensions/mole) applies only to advertised public read-only resources.                                                                        |
 | Sessions                     | Identifies the Personal Agent and a pseudonymous User, and connects activity across channels.         | The Personal Agent sends a Session JWT. The Company verifies it before relying on its identity or connecting state (section 5).                                           |
 | Account access               | Acts on a Company account with the User's authorization.                                              | Standard OAuth, with Poppy's choices listed in 4.8. Signed-out interactions need no OAuth server (section 4).                                                             |
 | Interaction channels         | Uses APIs, browses the website, or talks to the Company Agent, including handoff to a person.         | The Company exposes the channels it supports. Browser join connects website activity to the Session (sections 6, 7, and 8).                                               |
@@ -37,7 +37,7 @@ they are not a sequence of adoption levels.
 Sessions and account access are independent. A Session identifies activity through a Personal
 Agent; OAuth authorizes access to a Company account. On APIs and protocol endpoints, a signed-out
 request carries the Session header, and a signed-in request also carries an access token. The
-proposed [MOLE private-access extension](/docs/extensions/mole) defines an explicit exception
+[MOLE private-access extension](/docs/extensions/mole) defines an explicit exception
 for advertised public resources: it carries no User ID, Session header, or account token. OAuth
 endpoints use their own client authentication. Website pages use the Company's cookies, with
 browser join when supported (5.2 and section 6).
@@ -45,7 +45,7 @@ browser join when supported (5.2 and section 6).
 A Company can expose signed-out APIs without running an OAuth server. An endpoint that uses no
 Session claims can handle requests without verifying the Session header. Relying on Session
 identity, ownership, continuity, or state requires verification (5.3). The Personal Agent still
-sends the header even when the Company ignores it, except when it selects the proposed MOLE
+sends the header even when the Company ignores it, except when it selects the MOLE
 private-access profile for an advertised resource. Operator recognition alone does not verify
 Session claims, authorize account access, or decide whether the Company accepts the request.
 
@@ -783,7 +783,7 @@ private browser window. The Company sees a new User each time. The Personal Agen
 nothing else, discards it when the browsing session ends, and MUST NOT send an access token in a Session
 that uses it (5.4).
 
-The proposed [MOLE private-access extension](/docs/extensions/mole) permits access to advertised
+The [MOLE private-access extension](/docs/extensions/mole) permits access to advertised
 public resources without creating a User ID or Session. It does not attach those requests to
 a regular or anonymous browsing Session.
 
@@ -805,7 +805,7 @@ service providers that process it on the Personal Agent's behalf.
 
 The Personal Agent MUST send a `Poppy-Session` header on every request to a Company's APIs,
 conversations, and other resource endpoints this protocol or an extension defines, except when
-it selects the proposed [MOLE private-access profile](/docs/extensions/mole#requests) for an
+it selects the [MOLE private-access profile](/docs/extensions/mole#requests) for an
 advertised resource. The destinations come from the Company's `poppy.json`: the request URLs its listed APIs describe
 (section 7), and protocol endpoints listed there or derived as the protocol or extension defines.
 For example, conversation requests use the selected `agent.protocols[].endpoint` and the routes
@@ -1097,7 +1097,7 @@ When a Session continues signed out:
 - Companies MUST accept the Session header and access token without requiring cookies. Web pages
   carry a cookie instead (section 6).
 - Personal Agents MUST NOT leave out the Session header to appear to the Company as a person on
-  their own, except when using the proposed [MOLE private-access profile](/docs/extensions/mole)
+  their own, except when using the [MOLE private-access profile](/docs/extensions/mole)
   for an advertised resource. Web browsing follows section 6.
 - Personal Agents MUST NOT send tokens or Session JWTs in a URL, and Companies MUST NOT accept them
   from one.
@@ -1124,7 +1124,7 @@ This is optional. A Company that supports it lists `web.browser_session_endpoint
 browsing the Company's website. On a website without the endpoint, the Personal Agent browses as an
 ordinary signed-out visitor.
 
-A Personal Agent using the proposed [MOLE private-access profile](/docs/extensions/mole#clients)
+A Personal Agent using the [MOLE private-access profile](/docs/extensions/mole#clients)
 MUST NOT join its isolated private browser context to a Session. This exception applies only to
 the profile's advertised resources; other browsing follows the rules above. The profile requires
 User approval before moving private work into continuity or account access.
@@ -1308,7 +1308,7 @@ A Company can list APIs in its `poppy.json` (section 3). This version defines th
 Personal Agents SHOULD skip API types they don't recognize, so later versions can add types. The
 protocol leaves each API's schema to that API. Every listed API MUST accept the Session header (5.2)
 and, when the Company offers account access, its access tokens (4.5), and enforce their scopes.
-The proposed [MOLE private-access profile](/docs/extensions/mole) additionally permits eligible
+The [MOLE private-access profile](/docs/extensions/mole) additionally permits eligible
 public read-only HTTP resources without a Session header. It does not change MCP or account-access
 requirements.
 Session verification follows 5.3: an API that uses no Session claims can rely on OAuth alone for
@@ -2295,7 +2295,7 @@ Following [draft-ietf-wimse-aims](https://datatracker.ietf.org/doc/draft-ietf-wi
 which keeps an agent's credentials out of the model's reach, Personal Agents MUST keep these out of model
 context: access tokens (4.5), refresh tokens (4.4), Session JWTs (5.2), private keys, authorization codes and PKCE code
 verifiers (4.2), device codes (4.3), and MOLE endorsements, credentials, and pending authorization
-state when using the proposed [MOLE private-access profile](/docs/extensions/mole#clients). Personal Agents SHOULD keep every other secret out of model
+state when using the [MOLE private-access profile](/docs/extensions/mole#clients). Personal Agents SHOULD keep every other secret out of model
 context too, such as one-time codes, and sign and send requests in code the model can't read. The
 [guides](/docs/guides#both-secrets) list these secrets and how to handle them.
 
@@ -2436,5 +2436,5 @@ This draft uses these standards and versions:
 | APIs                                     | [OpenAPI Specification 3.1](https://spec.openapis.org/oas/v3.1.1.html), [Model Context Protocol 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18), [Model Context Protocol 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28), [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728), [draft-ietf-httpapi-idempotency-key-header](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/) |
 | HTTP and formats                         | [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), [RFC 6585](https://www.rfc-editor.org/rfc/rfc6585), [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339), [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648), [RFC 5646](https://www.rfc-editor.org/rfc/rfc5646), [RFC 9651](https://www.rfc-editor.org/rfc/rfc9651), [RFC 9745](https://www.rfc-editor.org/rfc/rfc9745), [RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)                     |
 | Operator signatures                      | [RFC 9421](https://www.rfc-editor.org/rfc/rfc9421), [Web Bot Auth](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/)                                                                                                                                                                                                                                                                                                       |
-| Proposed private access                  | [MOLE architecture revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-architecture-01), [protocols revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01), [HTTP transport revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01), all works in progress                                                                                                                     |
+| Private access                           | [MOLE architecture revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-architecture-01), [protocols revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01), [HTTP transport revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01)                                                                                                                                            |
 | Streaming                                | [Server-sent events (HTML Living Standard)](https://html.spec.whatwg.org/multipage/server-sent-events.html)                                                                                                                                                                                                                                                                                                                                        |

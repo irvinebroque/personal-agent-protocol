@@ -109,7 +109,6 @@ export const SECTION_NUMBERS: Record<string, string> = {
     "mole#clients": "5",
     "mole#continuity": "6",
     "mole#privacy": "7",
-    "mole#questions": "8",
     "links#intro": "1",
     "links#support": "2",
     "links#links": "3",
