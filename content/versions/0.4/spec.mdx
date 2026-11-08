@@ -28,7 +28,7 @@ they are not a sequence of adoption levels.
 | ---------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Discovery                    | Finds the Company's channels, capabilities, and sign-in options.                                      | The Company publishes `poppy.json` and at least one channel (section 3). Account access uses standard OAuth metadata (3.2).                                               |
 | Operator recognition         | Lets existing bot defenses authenticate the operator before application handling.                     | A recommended Web Bot Auth signature provides compatibility with those defenses. An edge that verifies delegated Session JWTs can authenticate the client directly (5.3). |
-| Private access               | Limits access without a Poppy User ID or Session.                                                     | The [MOLE extension](/docs/extensions/mole) applies only to advertised public read-only resources.                                                                        |
+| Private access               | Limits access without a Poppy User ID or Session.                                                     | The [MOLE extension](/docs/extensions/mole) permits identity-free negotiation for public read-only content.                                                               |
 | Sessions                     | Identifies the Personal Agent and a pseudonymous User, and connects activity across channels.         | The Personal Agent sends a Session JWT. The Company verifies it before relying on its identity or connecting state (section 5).                                           |
 | Account access               | Acts on a Company account with the User's authorization.                                              | Standard OAuth, with Poppy's choices listed in 4.8. Signed-out interactions need no OAuth server (section 4).                                                             |
 | Interaction channels         | Uses APIs, browses the website, or talks to the Company Agent, including handoff to a person.         | The Company exposes the channels it supports. Browser join connects website activity to the Session (sections 6, 7, and 8).                                               |
@@ -38,7 +38,7 @@ Sessions and account access are independent. A Session identifies activity throu
 Agent; OAuth authorizes access to a Company account. On APIs and protocol endpoints, a signed-out
 request carries the Session header, and a signed-in request also carries an access token. The
 [MOLE private-access extension](/docs/extensions/mole) defines an explicit exception
-for advertised public resources: it carries no User ID, Session header, or account token. OAuth
+for private requests, including initial negotiation: they carry no User ID, Session header, or account token. OAuth
 endpoints use their own client authentication. Website pages use the Company's cookies, with
 browser join when supported (5.2 and section 6).
 
@@ -46,7 +46,7 @@ A Company can expose signed-out APIs without running an OAuth server. An endpoin
 Session claims can handle requests without verifying the Session header. Relying on Session
 identity, ownership, continuity, or state requires verification (5.3). The Personal Agent still
 sends the header even when the Company ignores it, except when it selects the MOLE
-private-access profile for an advertised resource. Operator recognition alone does not verify
+private-access profile, including its initial identity-free request. Operator recognition alone does not verify
 Session claims, authorize account access, or decide whether the Company accepts the request.
 
 The [Company adoption guide](/docs/guides#company-adoption) describes how to choose these
@@ -783,8 +783,7 @@ private browser window. The Company sees a new User each time. The Personal Agen
 nothing else, discards it when the browsing session ends, and MUST NOT send an access token in a Session
 that uses it (5.4).
 
-The [MOLE private-access extension](/docs/extensions/mole) permits access to advertised
-public resources without creating a User ID or Session. It does not attach those requests to
+The [MOLE private-access extension](/docs/extensions/mole) permits initial private requests and MOLE negotiation for public read-only content without creating a User ID or Session. It does not attach those requests to
 a regular or anonymous browsing Session.
 
 A Personal Agent that acts for a User through several agents, such as a travel agent and a shopping
@@ -805,8 +804,8 @@ service providers that process it on the Personal Agent's behalf.
 
 The Personal Agent MUST send a `Poppy-Session` header on every request to a Company's APIs,
 conversations, and other resource endpoints this protocol or an extension defines, except when
-it selects the [MOLE private-access profile](/docs/extensions/mole#requests) for an
-advertised resource. The destinations come from the Company's `poppy.json`: the request URLs its listed APIs describe
+it selects the [MOLE private-access profile](/docs/extensions/mole#requests), including an initial
+private request without prior MOLE advertisement. The destinations come from the Company's `poppy.json`: the request URLs its listed APIs describe
 (section 7), and protocol endpoints listed there or derived as the protocol or extension defines.
 For example, conversation requests use the selected `agent.protocols[].endpoint` and the routes
 in 8.2, and browser authorization uses `{browser_session_endpoint}/authorize` (section 6).
@@ -1098,7 +1097,7 @@ When a Session continues signed out:
   carry a cookie instead (section 6).
 - Personal Agents MUST NOT leave out the Session header to appear to the Company as a person on
   their own, except when using the [MOLE private-access profile](/docs/extensions/mole)
-  for an advertised resource. Web browsing follows section 6.
+  including during initial private negotiation. Web browsing follows section 6.
 - Personal Agents MUST NOT send tokens or Session JWTs in a URL, and Companies MUST NOT accept them
   from one.
 
@@ -1125,8 +1124,7 @@ browsing the Company's website. On a website without the endpoint, the Personal 
 ordinary signed-out visitor.
 
 A Personal Agent using the [MOLE private-access profile](/docs/extensions/mole#clients)
-MUST NOT join its isolated private browser context to a Session. This exception applies only to
-the profile's advertised resources; other browsing follows the rules above. The profile requires
+MUST NOT join its isolated private browser context to a Session. This exception includes initial private negotiation without prior MOLE advertisement. The profile requires
 User approval before moving private work into continuity or account access.
 
 **Asking Personal Agents not to browse.** A Company that wants Personal Agents to use only its
@@ -1308,8 +1306,7 @@ A Company can list APIs in its `poppy.json` (section 3). This version defines th
 Personal Agents SHOULD skip API types they don't recognize, so later versions can add types. The
 protocol leaves each API's schema to that API. Every listed API MUST accept the Session header (5.2)
 and, when the Company offers account access, its access tokens (4.5), and enforce their scopes.
-The [MOLE private-access profile](/docs/extensions/mole) additionally permits eligible
-public read-only HTTP resources without a Session header. It does not change MCP or account-access
+The [MOLE private-access profile](/docs/extensions/mole) permits initial private requests and MOLE negotiation for public read-only HTTP content without a Session header or prior MOLE advertisement. It does not change MCP or account-access
 requirements.
 Session verification follows 5.3: an API that uses no Session claims can rely on OAuth alone for
 account access or serve signed-out requests without verifying Sessions.

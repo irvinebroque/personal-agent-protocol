@@ -526,10 +526,8 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 
 ### MOLE private access: [2. Advertising support](https://personalagentprotocol.org/docs/0.4/extensions/mole#support)
 
-- [ ] **MUST**: The Company MUST publish the configuration URL and resource URLs on the origin of `https://{organization.domain}`.
-- [ ] **MUST**: The Company MUST list only public, read-only resources.
-- [ ] **MUST NOT**: The Company MUST NOT list OAuth endpoints, browser-join endpoints, Poppy conversation endpoints, MCP endpoints, account data, or an operation that changes application state.
-- [ ] **MUST**: The Company MUST accept this browser use without requiring `Poppy-Extensions` or `Poppy-Version`.
+- [ ] **MUST**: The Company MUST publish the configuration URL on the origin of `https://{organization.domain}`.
+- [ ] **MUST**: A Company that offers MOLE MUST allow private negotiation without requiring `Poppy-Extensions` or `Poppy-Version`, including on the initial request.
 
 ### MOLE private access: [3. Anchors and eligibility](https://personalagentprotocol.org/docs/0.4/extensions/mole#anchors)
 
@@ -538,7 +536,7 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 
 ### MOLE private access: [4. Private requests](https://personalagentprotocol.org/docs/0.4/extensions/mole#requests)
 
-- [ ] **MUST**: The Company MUST support this mode without requiring a User ID, Session, or account cookie.
+- [ ] **MUST**: A Company that offers MOLE at a resource MUST support that exchange without requiring a User ID, Session, or account cookie.
 - [ ] **MUST**: The Personal Agent and Company MUST follow MOLE Protocols revision 01 and MOLE HTTP Transport revision 01.
 
 ### MOLE private access: [5. Browser and HTTP clients](https://personalagentprotocol.org/docs/0.4/extensions/mole#clients)
