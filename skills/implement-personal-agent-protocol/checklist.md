@@ -539,10 +539,7 @@ If you offer mediated sign-in, protect the credentials you accept (Mediated Sign
 ### MOLE private access: [4. Private requests](https://personalagentprotocol.org/docs/0.4/extensions/mole#requests)
 
 - [ ] **MUST**: The Company MUST support this mode without requiring a User ID, Session, or account cookie.
-- [ ] **MUST**: The Personal Agent and Company MUST follow the referenced MOLE HTTP transport for challenges, issuance, presentations, updates, and recovery.
-- [ ] **MUST**: The Company MUST bind an EC-ACT presentation to the request's method, full target URL including its query, and body bytes, using the credential protocol's operation-binding mechanism.
-- [ ] **MUST**: The Company MUST preserve replay protection within its declared replay scope and MUST NOT treat a recovered presentation as authorization to execute another operation.
-- [ ] **MUST**: The Company MUST retain the MOLE response's cache protections and expose the required authentication and update headers when it permits cross-origin wallet requests.
+- [ ] **MUST**: The Personal Agent and Company MUST follow MOLE Protocols revision 01 and MOLE HTTP Transport revision 01.
 
 ### MOLE private access: [5. Browser and HTTP clients](https://personalagentprotocol.org/docs/0.4/extensions/mole#clients)
 

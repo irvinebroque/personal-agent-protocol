@@ -62,7 +62,7 @@ An exact entry matches that path only. A `subpaths` entry matches the listed tra
 and paths below it, never a string prefix such as `/products-other`. The Personal Agent MUST
 reject resource entries and private request paths with dot segments, backslashes, or encoded
 path separators rather than using path normalization to expand the eligible scope. Query values
-do not select the scope, but remain part of the request and its operation binding (section 4).
+do not select the scope. Operation binding follows the MOLE requirements referenced in section 4.
 Sharing an origin does not make another resource eligible.
 
 For direct HTTP requests, the Personal Agent declares the extension with
@@ -108,22 +108,17 @@ cookie. This is the explicit exception to the Session rules in
 [5.1](/docs/spec#user-ids), [5.2](/docs/spec#session-header), and
 [5.6](/docs/spec#sending-requests).
 
-The Personal Agent and Company MUST follow the referenced MOLE HTTP transport for challenges,
-issuance, presentations, updates, and recovery. The Company MUST bind an EC-ACT presentation to
-the request's method, full target URL including its query, and body bytes, using the credential
-protocol's operation-binding mechanism. Discovery matching does not weaken this binding.
+The Personal Agent and Company MUST follow
+[MOLE Protocols revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01)
+and [MOLE HTTP Transport revision 01](https://datatracker.ietf.org/doc/html/draft-jms-mole-http-transport-01).
+Those specifications define the exchanges, durable client state, credential updates, replay
+protection, recovery, caching, and cross-origin response headers.
 
-The Personal Agent MUST process credential updates across HTTP response statuses, serialize use
-of a credential, and preserve pending exchange state before transmission. After an uncertain
-presentation, the Personal Agent MUST settle the saved exchange before starting another spend.
-Recovery settles the credential decision, not successful application execution or another
-authorization. This profile does not add application result recovery or a right to refill.
+Operation binding follows
+[MOLE Protocols 5.2.3.1](https://datatracker.ietf.org/doc/html/draft-jms-mole-protocols-01#section-5.2.3.1).
+This extension defines no additional HTTP request serialization or operation-binding format.
 
-The Company MUST preserve replay protection within its declared replay scope and MUST NOT treat
-a recovered presentation as authorization to execute another operation. The Company MUST retain
-the MOLE response's cache protections and expose the required authentication and update headers
-when it permits cross-origin wallet requests. A MOLE allowance does not grant OAuth scopes or
-permission to read account data.
+A MOLE allowance does not grant OAuth scopes or permission to read account data.
 
 Outside an advertised resource, the ordinary Poppy rules apply. A Personal Agent that cannot
 satisfy a private challenge stops or asks the User to choose another mode. The Personal Agent MUST
@@ -148,7 +143,7 @@ redirects, and subresource requests. It MUST stop an out-of-scope browser reques
 approves another mode. For later browser access with a Session or account, the Personal Agent
 MUST use a separate context. The Personal Agent MUST NOT join the private context after that approval.
 
-Direct HTTP clients need the same separation from user identity and the same wallet-state rules.
+Direct HTTP clients need the same separation from user identity.
 The Personal Agent MUST keep endorsements, credentials, continuation state, and pending
 authorization values outside model context ([10.2](/docs/spec#secrets)).
 
